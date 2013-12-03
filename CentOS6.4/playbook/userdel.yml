@@ -1,0 +1,5 @@
+- hosts: test-servers
+  user: vagrant
+  sudo: yes
+  tasks:
+    - user: name=ftakao2007 state=absent remove=yes

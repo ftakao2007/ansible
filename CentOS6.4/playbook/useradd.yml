@@ -1,0 +1,8 @@
+- hosts: test-servers
+  user: vagrant
+  sudo: yes
+  tasks:
+    - user: name=ftakao2007 comment="Ftakao2007" uid=1040 group=wheel
+
+# http://yteraoka.github.io/ansible-tutorial/ansible-in-detail.html
+# password add

@@ -1,0 +1,32 @@
+# syntax-check
+ansible-playbook -i hosts git.yml --syntax-check
+
+# task list
+ansible-playbook -i hosts git.yml --list-tasks
+
+# dry-run
+ansible-playbook -i hosts git.yml --check
+
+# execute
+ansible-playbook -i hosts git.yml
+## step-by-step 
+#ansible-playbook -i hosts git.yml --step
+## verbose mode (you can see output)
+#ansible-playbook -i hosts git.yml -v
+### playbook example
+#- shell: cat ~/memo
+##debag 
+# ansible-playbook -i hosts git.yml -vvv
+
+
+### Command memo
+ansible-playbook -i hosts git_install.yml
+
+
+### Link
+# explain about module(Japanese)
+http://yteraoka.github.io/ansible-tutorial/ansible-in-detail.html
+
+# sed
+http://qiita.com/myaaaaa_chan/items/f0a6258a757f3b18d65e
+
