@@ -1,0 +1,70 @@
+- hosts: test-servers
+  user: vagrant
+  sudo: yes
+  vars:
+    client_user_name:  vagrant
+    python_version_27: 2.7.6       
+    python_version_33: 3.3.3    
+
+  tasks:
+    - name: be sure for python librares are installed
+      action: yum pkg={{item}} state=installed
+      with_items:
+        - zlib
+        - zlib-devel
+        - tk-devel
+        - tcl-devel
+        - sqlite-devel
+        - ncurses-devel
+        - gdbm-devel
+        - readline-devel
+        - bzip2-devel
+        - db4-devel
+        - gcc
+        - libjpeg-devel
+        - make
+
+  # install python27
+    - command: wget http://www.python.org/ftp/python/{{python_version_27}}/Python-{{python_version_27}}.tgz chdir=/usr/local/src creates=Python-{{python_version_27}}.tgz
+    - command: tar zxvf Python-{{python_version_27}}.tgz chdir=/usr/local/src creates=Python-{{python_version_27}}
+    - command: ./configure --enable-shared chdir=/usr/local/src/Python-{{python_version_27}} creates=/usr/local/bin/python2.7
+    - command: make chdir=/usr/local/src/Python-{{python_version_27}} creates=/usr/local/bin/python2.7
+    - command: make altinstall chdir=/usr/local/src/Python-{{python_version_27}} creates=/usr/local/bin/python2.7
+    #- command: sudo ln -s /usr/local/src/Python-{{python_version_27}}/libpython2.7.so.1.0 chdir=/lib64 creates=libpython2.7.so.1.0
+    - file: src=/usr/local/src/Python-{{python_version_27}}/libpython2.7.so.1.0 dest=/lib64/libpython2.7.so.1.0 owner=root group=root state=link
+
+  # install python33
+    - command: wget http://www.python.org/ftp/python/{{python_version_33}}/Python-{{python_version_33}}.tgz chdir=/usr/local/src creates=Python-{{python_version_33}}.tgz
+    - command: tar zxvf Python-{{python_version_33}}.tgz chdir=/usr/local/src creates=Python-{{python_version_33}}
+    - command: ./configure --enable-shared chdir=/usr/local/src/Python-{{python_version_33}} creates=/usr/local/bin/python3.3
+    - command: make chdir=/usr/local/src/Python-{{python_version_33}} creates=/usr/local/bin/python3.3
+    - command: make altinstall chdir=/usr/local/src/Python-{{python_version_33}} creates=/usr/local/bin/python3.3
+    #- command: sudo ln -s /usr/local/src/Python-{{python_version_33}}/libpython3.3m.so.1.0 chdir=/lib64 creates=libpython3.3m.so.1.0
+    - file: src=/usr/local/src/Python-{{python_version_33}}/libpython3.3m.so.1.0 dest=/lib64/libpython3.3m.so.1.0 owner=root group=root state=link
+
+  # install distribute, pip
+    - command: wget http://python-distribute.org/distribute_setup.py chdir=/usr/local/src creates=distribute_setup.py
+    - command: python distribute_setup.py chdir=/usr/local/src creates=/usr/bin/easy_install
+    - command: wget https://raw.github.com/pypa/pip/develop/contrib/get-pip.py chdir=/usr/local/src creates=get-pip.py
+    - command: python get-pip.py chdir=/usr/local/src creates=/usr/bin/pip
+
+  # install virtualenv, virtualenvwrapper
+    - command: pip install virtualenv creates=/usr/bin/virtualenv
+    - command: pip install virtualenvwrapper creates=/usr/bin/virtualenvwrapper.sh
+
+  # .bashrc setting for virtualenv wrapper
+    - copy: src=/home/{{client_user_name}}/ansible/CentOS6.4/playbook/bashrc_for_virtualenv dest=/home/{{client_user_name}} owner={{client_user_name}}
+
+    - shell: sudo -u {{client_user_name}} cat /home/{{client_user_name}}/.bashrc
+      register: bashrc_contents
+
+    - shell: sudo -u {{client_user_name}} cat bashrc_for_virtualenv >> .bashrc chdir=/home/{{client_user_name}}
+      when: bashrc_contents.stdout.find('virtualenvwrapper.sh') == -1
+
+    - copy: src=/home/{{client_user_name}}/ansible/CentOS6.4/playbook/virtualenv.memo dest=/home/{{client_user_name}} owner={{client_user_name}}
+
+  # install ansible
+    - command: rpm -i http://ftp.riken.jp/Linux/fedora/epel/6/i386/epel-release-6-8.noarch.rpm creates=/usr/bin/ansible
+    - command: rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6 creates=/usr/bin/ansible
+    - command: yum clean metadata
+    - action: yum pkg=ansible state=installed

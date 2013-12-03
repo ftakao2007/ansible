@@ -1,0 +1,19 @@
+# Create env
+#mkvirtualenv hoge
+mkvirtualenv --python=/usr/local/bin/python2.7 python2.7
+mkvirtualenv --python=/usr/local/bin/python3.3 python3.3
+
+# Set env
+workon python2.7
+
+# Confirm module
+pip freeze
+
+# List env
+workon
+
+# Exit evn
+deactivate
+
+# Delete env
+rmvirtualenv python2.7

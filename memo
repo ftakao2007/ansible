@@ -21,6 +21,7 @@ ansible-playbook -i hosts git.yml
 
 ### Command memo
 ansible-playbook -i hosts git_install.yml
+ansible-playbook -i hosts python_install.yml
 
 
 ### Link

@@ -1,0 +1,7 @@
+
+# For python
+export VIRTUALENV_USE_DISTRIBUTE=true
+if [ -f /usr/bin/virtualenvwrapper.sh ]; then
+	export WORKON_HOME=$HOME/.virtualenvs
+	source /usr/bin/virtualenvwrapper.sh
+fi
