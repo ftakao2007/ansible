@@ -1,0 +1,13 @@
+- hosts: test-servers
+  user: vagrant
+  sudo: yes
+  gather_facts: no
+  vars:
+    remote_user: vagrant
+    public_key_file: /home/vagrant/.ssh/id_rsa.pub
+    remote_home: /home/{{remote_user}}
+  tasks:
+    - copy: src={{public_key_file}} dest={{remote_home}} owner={{remote_user}} group=vagrant mode=0600
+    - command: mkdir {{remote_home}}/.ssh creates={{remote_home}}/.ssh
+    - shell: cat {{remote_home}}/id_rsa.pub >> {{remote_home}}/.ssh/authorized_keys
+    - file: path={{remote_home}}/.ssh/authorized_keys owner={{remote_user}} group=vagrant mode=0600 

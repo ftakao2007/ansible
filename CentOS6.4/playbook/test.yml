@@ -1,0 +1,10 @@
+- hosts: test-servers
+  user: vagrant
+  sudo: yes
+  gather_facts: no
+  tasks:
+    - shell: echo "hoge"
+      register: result
+
+    - debug: var=result.stdout
+
