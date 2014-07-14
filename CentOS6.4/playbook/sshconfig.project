@@ -1,4 +1,0 @@
-Host 192.168.33.*
-	User vagrant
-        Port 22
-	ProxyCommand ssh -W %h:%p -w 120 vagrant@login
