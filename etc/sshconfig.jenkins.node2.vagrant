@@ -1,0 +1,3 @@
+Host 192.*
+	IdentityFile /var/lib/jenkins/userContent/id_rsa_jenkins
+	ProxyCommand ssh -W %h:%p -w 120 vagrant@192.168.33.12

@@ -1,5 +1,5 @@
-- hosts: test-servers
-  user: vagrant
+- hosts: all
+  user: "{{ ansible_user }}"
   sudo: yes
   vars:
     client_user_name: vagrant

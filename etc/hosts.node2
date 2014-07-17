@@ -1,0 +1,2 @@
+[node2]
+node2 ansible_ssh_host=192.168.33.12

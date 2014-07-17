@@ -1,0 +1,12 @@
+- hosts: all
+  user: "{{ ansible_user }}"
+  sudo: yes
+  gather_facts: no
+  tasks:
+    - command: sudo turbostat echo
+      register: output
+
+    - debug: var=output.stderr
+    #- debug: var=output.stdout_lines
+
+      #ignore_errors: True

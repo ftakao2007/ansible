@@ -1,10 +1,15 @@
-- hosts: test-servers
-  user: vagrant
-  sudo: yes
+- hosts: all
+  user: "{{ ansible_user }}"
   gather_facts: no
   tasks:
-    - shell: echo "hoge"
-      register: result
+    - name: run command and ignore the result
+      command: /bin/echo "ansible ok"
+      register: check_ansible
 
-    - debug: var=result.stdout
+    #- debug: var="{{check_ansible}}"
+    #- debug: var="{{check_ansible.stdout}}"   # <- error!!
+    - debug: var=check_ansible.stdout
 
+      ignore_errors: True
+
+# ansible-playbook -i ../etc/hosts.node2 ansible_test.yml --extra-vars "ansible_user=vagrant"

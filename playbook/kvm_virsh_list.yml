@@ -1,0 +1,11 @@
+- hosts: all
+  user: "{{ ansible_user }}"
+  sudo: yes
+  gather_facts: no
+  tasks:
+    - command: sudo virsh list
+      register: output
+
+    - debug: var=output.stdout_lines
+
+      #ignore_errors: True
