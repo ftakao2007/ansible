@@ -1,0 +1,7 @@
+---
+- hosts: webservers
+  gather_facts: no
+  sudo: yes
+  roles:
+  - role: znzj.rbenv.centos7
+    rbenv_ruby_version: 2.1.3

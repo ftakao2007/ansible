@@ -1,0 +1,10 @@
+- hosts: webservers
+  gather_facts: no
+  tasks:
+    - name: run command and ignore the result
+      command: /bin/echo "ansible ok"
+      register: check_ansible
+
+    - debug: var=check_ansible.stdout
+
+      ignore_errors: True

@@ -1,0 +1,8 @@
+---
+- name: 共通ユーザを作成
+  user: name={{ common_user_name }} state=present
+
+- name: 鍵の登録
+  authorized_key: user={{ common_user_name }} key="{{ lookup('file', 'vagrant_do.pem.pub') }}"
+
+#- include: other_common.yml

@@ -1,0 +1,6 @@
+---
+- hosts: webservers
+  gather_facts: no
+  roles:
+    # - ../common-roles/base   # roles配下にsymlinkを作らない場合
+    - base
