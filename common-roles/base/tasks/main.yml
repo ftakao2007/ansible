@@ -2,19 +2,3 @@
 - name: 必要なパッケージのインストール
   yum: name=git state=latest
 
-- name: デプロイユーザを作成
-  user: name={{ user_name }}
-        groups="wheel"
-        password="{{ user_pass }}"
-        generate_ssh_key=yes
-        ssh_key_bits=2048
-        state=present
-
-- name: sudoers設定
-  lineinfile: "dest=/etc/sudoers backup=yes state=present regexp='^{{ user_name }}' line='{{ user_name }} ALL=(ALL) NOPASSWD: ALL'"
-
-#- name: 鍵の登録
-#  authorized_key: user={{ deploy_user_name }} key="{{ lookup('file', 'dummy.pub') }}"
-
-
-#- include: other_common.yml

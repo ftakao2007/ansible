@@ -1,0 +1,10 @@
+---
+- name: ユーザを作成
+  user: name={{ user_name }}
+        groups="wheel"
+        password="{{ user_pass }}"
+        state=present
+
+- name: sudoers設定
+  lineinfile: "dest=/etc/sudoers backup=yes state=present regexp='^{{ user_name }}' line='{{ user_name }} ALL=(ALL) NOPASSWD: ALL'"
+

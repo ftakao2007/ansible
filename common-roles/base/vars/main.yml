@@ -1,2 +1,0 @@
-user_name: "{{ lookup('env', 'USER') }}"
-user_pass: "{{ lookup('env', 'USER_PASS') }}"

@@ -1,5 +1,5 @@
 ---
-- hosts: webservers
+- hosts: "{{ lookup('env', 'ANSIBLE_GROUP') }}"
   gather_facts: no
   roles:
     # - ../common-roles/base   # roles配下にsymlinkを作らない場合
