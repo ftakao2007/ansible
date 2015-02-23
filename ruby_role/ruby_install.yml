@@ -1,5 +1,0 @@
-- hosts: webservers
-  gather_facts: no
-  roles:
-     #- { role: eduardodeoh.rbenv, x: 42 }
-     - { role: eduardodeoh.ruby, x: 42 }

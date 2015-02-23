@@ -1,6 +1,0 @@
-  - hosts: webservers
-    roles:
-    - {role: bennojoy.mysql, root_db_pass: hogehoge, mysql_db: [name: ansible_db], mysql_users: [name: ansible_user] }
-    #- {role: bennojoy.mysql, root_db_pass: [name: ansible_user, pass: hogehoge], mysql_db: [name: ansible_db], mysql_users: [name: ansible_user] }
-    #- {role: bennojoy.mysql, root_db_pass: hogehoge, mysql_db: [name: ansible_db], mysql_users: [name: ansible_user] }
-    #- {role: bennojoy.mysql, root_db_pass: foobar, mysql_db: none, mysql_users: none }

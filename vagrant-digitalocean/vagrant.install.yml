@@ -1,0 +1,4 @@
+---
+- name: 必要なパッケージのインストール
+  #yum: name=https://dl.bintray.com/mitchellh/vagrant/vagrant_1.7.2_x86_64.rpm state=present
+  yum: name=git state=latest
