@@ -8,9 +8,9 @@ echo "IP?"
 read ssh_ip
 if [ -z "$ssh_ip" ]; then echo "please set ip"; fi
 
-echo "ansible ssh user? [default : root]"
+echo "ansible ssh user? [default : deploy]"
 read ssh_user
-if [ -z "$ssh_user" ]; then ssh_user="root"; fi
+if [ -z "$ssh_user" ]; then ssh_user="deploy"; fi
 
 echo "ansible ssh port? [default : 22]"
 read ssh_port

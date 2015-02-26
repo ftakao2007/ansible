@@ -1,0 +1,2 @@
+---
+- yum: name={{ rbenv_packages | join(",") }}

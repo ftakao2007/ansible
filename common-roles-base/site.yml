@@ -1,0 +1,13 @@
+---
+- hosts: webservers
+  gather_facts: no
+  roles:
+    # 必要なパッケージのインストール
+    - base
+
+    # 個人ユーザ作成と鍵の登録
+    - { role: useradd.key, user_name: deploy, user_key: id_rsa.pub }
+
+    # 個人ユーザの作成とパスワードの設定
+    # 未完成。vars_prompt使って上手くやりたい。。
+    #- { role: useradd.password, user_name: deploy }

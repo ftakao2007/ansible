@@ -1,0 +1,49 @@
+---
+# tasks file for rbenv
+
+- name: checkout rbenv repo for selected users
+  git: repo={{ rbenv_repo }} dest={{ rbenv_root }} version={{ rbenv_version }}
+  with_items: rbenv_users
+  sudo: true
+  sudo_user: "{{ item }}"
+  ignore_errors: true
+  tags: checkout_rbenv_repo
+
+- name: create rbenv plugins directory for selected users
+  file: state=directory path={{ rbenv_root }}/plugins
+  with_items: rbenv_users
+  sudo: true
+  sudo_user: "{{ item }}"
+  ignore_errors: true
+  tags: create_rbenv_plugins_directory
+
+- name: install rbenv plugins for selected users
+  git: repo={{ item[1].repo }} dest={{ rbenv_root }}/plugins/{{ item[1].name }} version={{ item[1].version }}
+  with_nested:
+    - rbenv_users
+    - rbenv_plugins
+  sudo: true
+  sudo_user: "{{ item[0] }}"
+  ignore_errors: true
+  tags: install_rbenv_plugins
+
+- name: set default gems
+  copy: src=default-gems dest={{ rbenv_root }}/default-gems
+  with_items: rbenv_users
+  sudo: true
+  sudo_user: "{{ item }}"
+  ignore_errors: true
+  tags: set_rbenv_default_gems
+
+- name: add rbenv initialization to profile
+  template: src=rbenv.sh.j2 dest=/etc/profile.d/rbenv.sh owner=root group=root mode=0755
+  sudo: true
+  tags: install_rbenv_init_to_profile
+
+- name: set gemrc
+  copy: src=gemrc dest=~/.gemrc
+  with_items: rbenv_users
+  sudo: true
+  sudo_user: "{{ item }}"
+  ignore_errors: true
+  tags: setting_user_gemrc

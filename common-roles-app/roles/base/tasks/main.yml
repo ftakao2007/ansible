@@ -1,0 +1,4 @@
+---
+- name: 必要なパッケージのインストール
+  yum: name=git state=latest
+
