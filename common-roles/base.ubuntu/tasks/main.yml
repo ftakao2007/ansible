@@ -1,0 +1,4 @@
+---
+- name: 必要なパッケージのインストール
+  apt: name=git state=latest
+

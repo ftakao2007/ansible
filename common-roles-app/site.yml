@@ -1,7 +1,0 @@
----
-- hosts: webservers
-  sudo: yes
-  gather_facts: no
-  roles:
-    # rbenvのインストール
-    - {role: znzj.rbenv.centos7, rbenv_ruby_version: 2.2.0 }

@@ -1,0 +1,18 @@
+---
+- name: ユーザを作成
+  user: name={{ user_name }}
+        groups="sudo"
+        shell="/bin/bash"
+        generate_ssh_key=yes
+        ssh_key_bits=2048
+        state=present
+
+- name: 鍵の登録
+  authorized_key: user={{ user_name }} 
+                  key="{{ item }}"
+  with_file:
+    - "{{ user_key }}"
+
+#- name: sudoers設定
+#  lineinfile: "dest=/etc/sudoers backup=yes state=present regexp='^{{ user_name }}' line='{{ user_name }} ALL=(ALL) NOPASSWD: ALL'"
+
