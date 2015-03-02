@@ -13,6 +13,6 @@
   with_file:
     - "{{ user_key }}"
 
-#- name: sudoers設定
-#  lineinfile: "dest=/etc/sudoers backup=yes state=present regexp='^{{ user_name }}' line='{{ user_name }} ALL=(ALL) NOPASSWD: ALL'"
+- name: sudoers設定
+  lineinfile: "dest=/etc/sudoers backup=yes state=present regexp='^{{ user_name }}' line='{{ user_name }} ALL=(ALL) NOPASSWD: ALL'"
 

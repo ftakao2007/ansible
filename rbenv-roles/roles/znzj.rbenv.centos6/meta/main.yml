@@ -1,0 +1,18 @@
+---
+galaxy_info:
+  author: Kazuhiro NISHIYAMA
+  description: rbenv system install to /usr/local/rbenv
+  license: MIT
+  min_ansible_version: 1.6
+
+  platforms:
+  - name: CentOS7
+    versions:
+    - 7
+
+  categories:
+  - development
+  - packaging
+  - system
+
+dependencies: []

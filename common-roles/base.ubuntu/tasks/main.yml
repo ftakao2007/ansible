@@ -1,4 +1,15 @@
 ---
+- name: updates a server
+  apt: update_cache=yes
+
+- name: upgrade a server
+  apt: upgrade=full
+
 - name: 必要なパッケージのインストール
   apt: name=git state=latest
 
+- name: 時刻の設定
+  command: rsync -Lci --times /usr/share/zoneinfo/Japan /etc/localtime
+  register: rsync
+  changed_when: rsync.stdout|search('^>f.*')
+  #tags: [configuration,timezone]

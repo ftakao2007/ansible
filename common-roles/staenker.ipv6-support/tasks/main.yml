@@ -1,0 +1,21 @@
+---
+- name: ensure ipv6 is enabled on all interfaces
+  sysctl: name=net.ipv6.conf.all.disable_ipv6
+          value=0
+          state=present
+  when: enabled
+- name: ensure ipv6 is enabled per default
+  sysctl: name=net.ipv6.conf.default.disable_ipv6
+          value=0
+          state=present
+  when: enabled
+- name: ensure ipv6 is disabled on all interfaces
+  sysctl: name=net.ipv6.conf.all.disable_ipv6
+          value=1
+          state=present
+  when: not enabled
+- name: ensure ipv6 is disabled per default
+  sysctl: name=net.ipv6.conf.default.disable_ipv6
+          value=1
+          state=present
+  when: not enabled

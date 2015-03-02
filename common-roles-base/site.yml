@@ -2,10 +2,13 @@
 - hosts: webservers
   gather_facts: no
   roles:
-    # 必要なパッケージのインストール
+    # 最新にupdate、必要なパッケージのインストール、時刻の設定
     #- base
     - ../common-roles/base.ubuntu
     #- ../common-roles/base.centos7
+
+    # ipv6 disable
+    - { role: ../common-roles/staenker.ipv6-support, enabled: false }
 
     # 個人ユーザ作成と鍵の登録
     #- { role: useradd.key, user_name: deploy, user_key: id_rsa.pub }

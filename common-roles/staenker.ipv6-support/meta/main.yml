@@ -1,0 +1,17 @@
+---
+galaxy_info:
+  author: Richard Hauswald
+  description: Ensures that ipv6 is either enabled or disabled on a Debian based system
+  license: Apache License, Version 2.0
+  min_ansible_version: 1.7.2
+  platforms:
+  - name: Ubuntu
+    versions:
+    - all
+  - name: Debian
+    versions:
+    - all
+  categories:
+  - system
+dependencies: []
+
