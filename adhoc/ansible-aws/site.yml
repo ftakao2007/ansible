@@ -4,4 +4,4 @@
   gather_facts: no
   roles:
     # create ec2 instance
-    - { role: create.ec2.instance, image: ami-a1124fa0, instance_type: t2.micro, keypair: mypair group: securitygrp, region: ap-northeast-1 }
+    - { role: create.ec2.instance, image: ami-2199d511, instance_type: t2.micro, keypair: ftko-develop, group: ssh_and_http, region: ap-northeast-1 }
