@@ -1,0 +1,11 @@
+---
+- name: Provision a set of instances
+  local_action: ec2
+    keypair={{keypair}}
+    group={{group}}
+    instance_type={{instance_type}}
+    image={{image}}
+    region={{region}}
+    wait={{wait}}
+    instance_tags='{"Name":"ansibled"}'
+  register: ec2

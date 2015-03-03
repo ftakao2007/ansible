@@ -1,0 +1,7 @@
+---
+  image: ami-a1124fa0     # [Launch Instance で AMIを選ぶときの ID]
+  instance_type: t2.micro # [Instance Type]
+  keypair: mypair         # [EC2 -> Key Pair で Key Pair Name]
+  group: securitygrp      # [EC2 -> Security Gruop の Group Name]
+  region: ap-northeast-1  # [EC2 のリージョン]
+  wait: true
