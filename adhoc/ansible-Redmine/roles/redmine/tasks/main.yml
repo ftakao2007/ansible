@@ -1,0 +1,69 @@
+# database
+- name: add MySQL database {{ mysql_redmine_database }}
+  mysql_db: db={{ mysql_redmine_database }} state=present encoding=utf8 collation=utf8_unicode_ci
+  remote_user: redmine
+
+- name: add MySQL server user for localhost
+  mysql_user: user=gitlab host=localhost password={{ mysql_redmine_password }} state=present
+              priv="{{ mysql_redmine_database }}.*:SELECT, LOCK TABLES, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER"
+  remote_user: redmine
+
+# redmine
+- name: Delete redmine-{{ redmine_ver }}
+  file: path=~/redmine state=absent
+  remote_user: redmine
+
+- name: Download redmine
+  get_url: url=http://www.redmine.org/releases/redmine-{{ redmine_ver }}.tar.gz dest=~/redmine-{{ redmine_ver }}.tar.gz
+  remote_user: redmine
+
+- name: Extract tar.gz
+  shell: tar zxvf redmine-{{ redmine_ver }}.tar.gz chdir=~
+  remote_user: redmine
+
+- name: Move redmine-{{ redmine_ver }} to redmine
+  shell: mv redmine-{{ redmine_ver }} redmine
+  remote_user: redmine
+
+- name: Template config/database.yml
+  template: src=database.yml.mysql.j2 dest=~/redmine/config/database.yml mode=0600
+  remote_user: redmine
+
+# unicorn
+- name: Template Gemfile.local
+  template: src=Gemfile.local dest=~/redmine/Gemfile.local mode=0644
+  remote_user: redmine
+
+- name: Template config/unicorn.rb
+  template: src=unicorn.rb.j2 dest=~/redmine/config/unicorn.rb mode=0600
+  remote_user: redmine
+
+- name: mkdir redmine/tmp/pids
+  file: path=~/redmine/tmp/pids state=directory owner=redmine group=git mode=0775
+  remote_user: redmine
+
+# bundle install
+- name: Install Bundle
+  shell: bundle install --without development test chdir=~/redmine
+  remote_user: redmine
+
+#Initialize Secret Token
+- name: Initialize Secret Token
+  shell: bundle exec rake generate_secret_token chdir=~/redmine
+  remote_user: redmine
+
+# Initialize Database
+- name: Initialize Database
+  shell: "bundle exec rake db:migrate RAILS_ENV=production chdir=~/redmine"
+  remote_user: redmine
+
+# Add Redmine as service
+- name: Template nginx/conf.d/redmine.conf
+  template: src=nginx_redmine.conf.j2 dest=/etc/nginx/conf.d/redmine.conf mode=0644
+
+# Add Config for Redmine
+- name: Template /etc/init.d/redmine
+  template: src=init_redmine.j2 dest=/etc/init.d/redmine mode=0755 owner=root group=root
+
+- name: ensure redmine is running automatically at boot time
+  service: name=redmine state=started enabled=yes

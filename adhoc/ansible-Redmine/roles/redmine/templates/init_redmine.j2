@@ -1,0 +1,124 @@
+#! /bin/sh
+
+# chkconfig: - 85 15
+
+### BEGIN INIT INFO
+# Provides:          redmine
+# Required-Start:    $local_fs $remote_fs $network $syslog
+# Required-Stop:     $local_fs $remote_fs $network $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Redmine Project management software
+# Description:       Redmine Project management software
+### END INIT INFO
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+### Environment variables
+RAILS_ENV="production"
+
+# Feel free to change any of the following variables for your app:
+APP_ROOT={{ redmine_home }}/redmine
+APP_USER="redmine"
+PID=${APP_ROOT}/tmp/pids/unicorn.pid
+CMD="/home/redmine/.rbenv/shims/bundle exec unicorn_rails -D -c ${APP_ROOT}/config/unicorn.rb -E ${RAILS_ENV}"
+INIT_CONF=${APP_ROOT}/config/init.conf
+action="$1"
+RETVAL=0
+prog="redmine"
+
+test -f "${INIT_CONF}" && . ${INIT_CONF}
+
+cd ${APP_ROOT} || exit 1
+
+start(){
+  echo -n $"Starting $prog: "
+  daemon --pidfile=${PID} --user=${APP_USER} "cd ${APP_ROOT} && ${CMD}" 
+  RETVAL=$?
+  echo
+}
+
+stop(){
+  echo -n $"Stopping $prog: "
+  killproc -p ${PID} ${prog} -QUIT
+  RETVAL=$?
+  echo
+}
+
+rh_status() {
+    status -p ${PID} ${prog}
+}
+
+force_stop(){
+  echo -n $"Force-Stopping $prog: "
+  killproc -p ${PID} ${prog} -TERM
+  RETVAL=$?
+  echo
+}
+
+reload(){
+  echo -n $"Reloading $prog: "
+  killproc -p ${PID} ${prog} -HUP
+  RETVAL=$?
+  echo
+}
+
+upgrade(){
+  old_pid=${PID}.oldbin
+  echo -n $"Staring new master $prog: "
+  killproc -p ${PID} ${prog} -USR2
+  RETVAL=$?
+  echo
+  sleep 2
+  if [ -f ${old_pid} -a -f ${PID} ]; then
+      echo -n $"Graceful shutdown of old $prog: "
+      killproc -p ${old_pid} ${prog} -QUIT
+      RETVAL=$?
+      echo 
+  else
+      echo $"Upgrade failed!"
+      return 1
+  fi
+}
+
+reopen_logs(){
+  echo -n $"ReOpening Logs $prog: "
+  killproc -p ${PID} ${prog} -USR1
+  RETVAL=$?
+  echo
+}
+
+case $action in
+start)
+  start
+  ;;
+stop)
+  stop
+  ;;
+status)
+  rh_status
+  ;;
+restart)
+  stop
+  sleep 2
+  start
+  ;;
+reload)
+  reload
+  ;;
+upgrade)
+  upgrade
+  ;;
+force-stop)
+  force_stop
+  ;;
+reopen-logs)
+  reopen_logs
+  ;;
+*)
+  echo >&2 "Usage: $0 <start|stop|restart|reload|upgrade|force-stop|reopen-logs>"
+  exit 1
+  ;;
+esac
+exit 0
