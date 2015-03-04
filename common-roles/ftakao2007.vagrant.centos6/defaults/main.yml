@@ -1,0 +1,3 @@
+---
+# defaults vagrant vars
+vagrant_version: 1.7.2
