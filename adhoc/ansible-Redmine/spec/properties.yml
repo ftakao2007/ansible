@@ -1,0 +1,6 @@
+root:
+  roles:
+    - Packages
+    - redmine
+  ip: 104.131.163.242
+  private_key: ~/.ssh/digitalocean.pem

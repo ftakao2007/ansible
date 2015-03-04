@@ -7,7 +7,7 @@
     - Packages
     - user
     #for redmine
-    - { role: ruby, ruby_ver: 2.2.1 }
+    - { role: ruby, ruby_ver: 2.2.0 }
     - { role: mariadb, mysql_root_password: password }
     - { role: redmine, mysql_redmine_password: password, mysql_redmine_database: redmine, redmine_ver: 3.0.0 }
 #    - redmine-plugins
