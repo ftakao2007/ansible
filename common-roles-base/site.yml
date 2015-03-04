@@ -4,15 +4,17 @@
   roles:
     # 最新にupdate、必要なパッケージのインストール、時刻の設定
     #- base
-    - ../common-roles/base.ubuntu
+    #- ../common-roles/base.ubuntu
+    - ../common-roles/base.centos6
     #- ../common-roles/base.centos7
 
     # ipv6 disable
-    - { role: ../common-roles/staenker.ipv6-support, enabled: false }
+    #- { role: ../common-roles/staenker.ipv6-support, enabled: false }
 
     # 個人ユーザ作成と鍵の登録
     #- { role: useradd.key, user_name: deploy, user_key: id_rsa.pub }
-    - { role: ../common-roles/useradd.key.ubuntu, user_name: deploy, user_key: id_rsa.pub }
+    #- { role: ../common-roles/useradd.key.ubuntu, user_name: deploy, user_key: id_rsa.pub }
+    - { role: ../common-roles/useradd.key.centos6, user_name: deploy2, user_key: id_rsa.pub }
     #- { role: ../common-roles/useradd.key.centos7, user_name: deploy, user_key: id_rsa.pub }
 
     # 個人ユーザの作成とパスワードの設定
