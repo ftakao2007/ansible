@@ -1,6 +1,7 @@
 ---
 - name: gem install redcarpet
-  gem: name=redcarpet version=2.0.0b5 state=present
+  #gem: name=redcarpet version=2.0.0b5 state=present
+  gem: name=redcarpet version=3.1.2 state=present
   remote_user: redmine
 
 - name: Download Redmine Redcarpet Formatter
