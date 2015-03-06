@@ -1,9 +1,9 @@
 ---
 - hosts: webservers
-#  gather_facts: yes
+  gather_facts: no
   sudo: yes
   roles:
 
     # rbenvのインストール
-    - {role: ../common-roles/znzj.rbenv, rbenv_ruby_version: 2.2.0 }
-    #- {role: ../common-roles/znzj.rbenv.centos7, rbenv_ruby_version: 2.2.0 }
+    #- {role: ../common-roles/znzj.rbenv, rbenv_ruby_version: 2.2.0 }
+    - {role: ../common-roles/znzj.rbenv.centos7, rbenv_ruby_version: 2.2.0 }

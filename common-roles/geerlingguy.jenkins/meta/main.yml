@@ -1,6 +1,6 @@
 ---
-dependencies:
-  - { role: geerlingguy.java }
+#dependencies:
+#  - { role: geerlingguy.java }
 
 galaxy_info:
   author: geerlingguy

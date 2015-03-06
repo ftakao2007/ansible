@@ -1,0 +1,10 @@
+---
+- hosts: webservers
+  gather_facts: yes
+  sudo: yes
+  roles:
+
+    # javaのインストール
+    - {role: ../common-roles/geerlingguy.java.centos, java_packages: java-1.7.0-openjdk }
+    #- {role: ../common-roles/geerlingguy.java.ubuntu, java_packages: iopenjdk-7-jdk }
+

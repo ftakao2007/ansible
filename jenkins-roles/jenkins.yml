@@ -1,9 +1,0 @@
----
-- hosts: webservers
-  #gather_facts: yes
-  sudo: yes
-  vars:
-    jenkins_hostname: node
-  roles:
-    # jenkinsのインストール
-    - {role: ../common-roles/geerlingguy.jenkins }
