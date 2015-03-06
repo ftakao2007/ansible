@@ -1,6 +1,6 @@
-# file: mysql/vars/centos7.yml
+# file: mysql/vars/centos6.yml
 
 mysql_packages:
   - mysql-server
-  - mysql-client
-  - python-mysqldb
+  - mysql
+  - MySQL-python 

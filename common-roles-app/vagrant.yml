@@ -1,7 +1,10 @@
 ---
 - hosts: webservers
-#  gather_facts: yes
+  gather_facts: no
   sudo: yes
   roles:
     # vagrantのインストール
+    # vagrant-digitalocean pulginのインストール
+    # vagrant-aws pulginのインストール
     - { role: ../common-roles/ftakao2007.vagrant.centos6, vagrant_version: 1.7.2 }
+

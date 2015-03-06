@@ -1,4 +1,9 @@
 ---
-- name: 必要なパッケージのインストール
-  yum: name=git state=latest
+- name: yum update
+  yum: name=* state=latest
 
+- name: 必要なパッケージのインストール
+  yum: name={{ item }} state=latest
+  with_items:
+    - git
+    - screen
