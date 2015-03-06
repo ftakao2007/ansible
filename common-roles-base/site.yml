@@ -14,7 +14,7 @@
     # 個人ユーザ作成と鍵の登録
     #- { role: useradd.key, user_name: deploy, user_key: id_rsa.pub }
     #- { role: ../common-roles/useradd.key.ubuntu, user_name: deploy, user_key: id_rsa.pub }
-    - { role: ../common-roles/useradd.key.centos6, user_name: deploy2, user_key: id_rsa.pub }
+    - { role: ../common-roles/useradd.key.centos6, user_name: deploy, user_key: id_rsa.pub }
     #- { role: ../common-roles/useradd.key.centos7, user_name: deploy, user_key: id_rsa.pub }
 
     # 個人ユーザの作成とパスワードの設定
