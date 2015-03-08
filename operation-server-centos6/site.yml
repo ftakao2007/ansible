@@ -12,15 +12,22 @@
 
     ### jenkinsインストール
     # javaのインストール
-    #- {role: ../common-roles/geerlingguy.java.centos, java_packages: java-1.7.0-openjdk }
+    - {role: ../common-roles/geerlingguy.java.centos, java_packages: java-1.7.0-openjdk }
 
     # jenkinsのインストール
-    #- {role: ../common-roles/geerlingguy.jenkins }
+    - {role: ../common-roles/geerlingguy.jenkins }
+
+    ### vagrantのインストール
+    # vagrant-digitalocean pulginのインストール
+    # vagrant-aws pulginのインストール
+    - { role: ../common-roles/ftakao2007.vagrant.centos6, vagrant_version: 1.7.2 }
 
   tasks:
+    #- name: テスト用鍵ファイルの登録
+      shell: cat id_rsa.pub >> authorized_keys  chdir=~/.ssh
+      sudo: no
+
     - name: リポジトリのダウンロード
       git: repo=https://github.com/ftakao2007/ansible.git dest=~/ansible update=no
       sudo: no
 
-    #- name: ansibleテスト
-    #  command: ansible-playbook -i "127.0.0.1," ~/ansible/no-roles-test/execute_echo.yml -vvv -k -c paramiko
