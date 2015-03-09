@@ -4,7 +4,7 @@
   roles:
     # 最新にupdate、必要なパッケージのインストール、時刻の設定
     #- base
-    #- ../common-roles/base.ubuntu
+    - ../common-roles/base.ubuntu
     #- ../common-roles/base.centos6
     #- ../common-roles/base.centos7
 

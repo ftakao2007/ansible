@@ -1,0 +1,13 @@
+---
+- name: 必要なパッケージのインストール
+  apt: name={{ item }} state=latest
+  with_items:
+    - xrdp
+    - lxde
+
+- name: .xsessionの設定
+  shell: echo lxsession -s LXDE -e LXDE > ~/.xsession
+  sudo: no
+
+- name: xrdp再起動
+  service: name=xrdp state=restarted
