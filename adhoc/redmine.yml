@@ -1,0 +1,11 @@
+---
+- hosts: webservers
+  gather_facts: yes
+  roles:
+  - { role: krahser.redmine, 
+            mysql_root_password: "dificil", 
+            db_host: "127.0.0.1", 
+            db_name: "redmine", 
+            db_username: "admin",
+            db_password: "unaContrasenia", 
+            redmine_version: "3.0.0" }
