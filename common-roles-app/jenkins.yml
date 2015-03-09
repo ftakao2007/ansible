@@ -1,0 +1,13 @@
+---
+- hosts: webservers
+  gather_facts: yes
+  sudo: yes
+  vars:
+    jenkins_hostname: node
+  roles:
+    # javaのインストール
+    #- {role: ../common-roles/geerlingguy.java.centos, java_packages: java-1.7.0-openjdk }
+    #- {role: ../common-roles/geerlingguy.java.ubuntu, java_packages: iopenjdk-7-jdk }
+
+    # jenkinsのインストール
+    - {role: ../common-roles/geerlingguy.jenkins }

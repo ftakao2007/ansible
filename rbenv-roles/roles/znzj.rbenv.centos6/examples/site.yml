@@ -1,7 +1,0 @@
----
-- hosts: all
-  sudo: yes
-  roles:
-  - znzj.ja_jp
-  - role: znzj.rbenv
-    rbenv_ruby_version: 2.1.5

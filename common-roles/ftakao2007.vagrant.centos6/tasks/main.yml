@@ -1,4 +1,14 @@
 ---
+- name: 必要なパッケージのインストール
+  yum: name=gcc state=latest
+
 - name: vagrantのインストール
   yum: name=https://dl.bintray.com/mitchellh/vagrant/vagrant_{{ vagrant_version }}_x86_64.rpm state=present
 
+- name: vagrant-digitalocean pulginのインストール
+  command: vagrant plugin install vagrant-digitalocean
+  sudo: no
+
+- name: vagrant-aws pulginのインストール
+  command: vagrant plugin install vagrant-aws
+  sudo: no

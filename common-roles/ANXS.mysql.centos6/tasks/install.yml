@@ -7,10 +7,9 @@
   yum:
   #apt:
     pkg: "{{item}}"
-    update_cache: yes
   with_items: mysql_packages
 
 - name: MySQL | Ensure MySQL is running
   service:
-    name: mysql
+    name: mysqld
     state: started
