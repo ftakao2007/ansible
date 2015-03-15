@@ -1,0 +1,21 @@
+---
+# https://github.com/sameersbn/docker-redmine
+- name: dockerのアンインストール
+  apt: name={{ item }} state=absent purge=yes
+  with_items:
+    - docker.io
+
+- name: dockerのインストール
+  shell: curl -s https://get.docker.io/ubuntu/ | sudo sh
+
+- name: updates a server
+  apt: update_cache=yes
+
+- name: upgrade a server
+  apt: upgrade=full
+
+- name: lxc-dockerのインストール
+  apt: name=lxc-docker state=latest
+
+- name: redmineのインストール
+  shell: docker pull sameersbn/redmine:3.0.0
