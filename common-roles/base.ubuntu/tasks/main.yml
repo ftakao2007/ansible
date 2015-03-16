@@ -3,7 +3,8 @@
   apt: update_cache=yes
 
 - name: upgrade a server
-  apt: upgrade=full
+  #apt: upgrade=full
+  apt: upgrade=dist
 
 - name: 必要なパッケージのインストール
   apt: name=git state=latest

@@ -1,0 +1,10 @@
+---
+- name: 必要なパッケージのインストール
+  apt: name={{ item }} state=latest
+  with_items:
+    - gcc
+    - python-dev
+    - python-yaml
+
+- name: ansibleのインストール
+  command: pip install ansible
