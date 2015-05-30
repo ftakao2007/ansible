@@ -36,7 +36,7 @@ echo "${ssh_ip}" >> ${inventoryfile}
 #echo "${host_name}" >> ${inventoryfile}
 
 ### create group_vars
-if [ ! -d "group_vars" ]; mkdir group_vars; fi
+if [ ! -d "group_vars" ]; then mkdir group_vars; fi
 echo "ansible_ssh_user: \"${ssh_user}\"" > group_vars/${group}
 echo "ansible_ssh_port: \"${ssh_port}\"" >> group_vars/${group}
 echo "ansible_ssh_private_key_file: \"${ssh_private_key_path}\"" >> group_vars/${group}
