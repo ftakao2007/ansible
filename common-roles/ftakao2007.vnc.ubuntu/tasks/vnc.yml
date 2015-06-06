@@ -11,19 +11,21 @@
 
 - name: vncパスワード用ディレクトリの作成
   file: path=/home/vnc/.vnc state=directory owner=vnc group=vnc mode=0700
-  tags: add-vncpasswd
 
 - name: vncパスワードファイルの設置
   copy: src=passwd dest=/home/vnc/.vnc/passwd owner=vnc group=vnc mode=0600
-  tags: add-vncpasswd
 
 - name: vncserver設定ファイルの設置
   copy: src=vncserver dest=/etc/init.d/vncserver owner=root group=root mode=0755
  
 - name: xstartup設定ファイルの設置
   copy: src=xstartup dest=/home/vnc/.vnc/xstartup owner=vnc group=vnc mode=0755
-  tags: dev
 
 - name: Xwrapper.configの設定
   lineinfile: "dest=/etc/X11/Xwrapper.config backup=yes state=present regexp='^allowed_users' line='allowed_users=anybody'"
-  tags: dev
+
+- name: vncサーバの起動
+  service: name=vncserver state=started
+
+- name: サーバ起動時に自動でvncserver起動
+  command: /usr/sbin/update-rc.d vncserver defaults
