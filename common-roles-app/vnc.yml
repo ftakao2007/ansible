@@ -1,0 +1,8 @@
+---
+- hosts: webservers
+  gather_facts: no
+  sudo: yes
+  roles:
+    # vnc設定
+    - { role: ../common-roles/ftakao2007.vnc.ubuntu }
+

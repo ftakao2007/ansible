@@ -1,0 +1,4 @@
+---
+# tasks file for ansible-role-vnc
+- include: packages.yml tags=vnc-packages
+- include: vnc.yml tags=vnc

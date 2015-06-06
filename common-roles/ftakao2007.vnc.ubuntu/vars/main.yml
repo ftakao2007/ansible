@@ -1,0 +1,8 @@
+---
+# vars file for ansible-role-vnc
+
+vnc_packages:
+- ubuntu-desktop
+- tightvncserver
+- xfce4
+- xfce4-goodies
