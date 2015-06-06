@@ -1,0 +1,4 @@
+---
+- name: ppassengerをインストール
+  gem: name={{ item }} user_install=no executable={{ rbenv_root }}/shims/gem
+  with_items: passenger

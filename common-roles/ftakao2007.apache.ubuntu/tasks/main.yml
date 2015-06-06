@@ -1,3 +1,7 @@
 ---
+# tasks file for ansible-role-apache
+- include: apache.yml tags=apache,passenger
+- include: passenger.yml tags=passenger
+
 - name: apacheのインストール
   apt: name=apache2 state=latest

@@ -1,0 +1,3 @@
+---
+- name: 必要なパッケージをインストール
+  apt: name={{ rbenv_packages | join(",") }}
