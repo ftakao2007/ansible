@@ -4,5 +4,5 @@
   sudo: yes
   roles:
     # vnc設定
-    - { role: ../common-roles/ftakao2007.vnc.ubuntu }
+    - { role: ../common-roles/ftakao2007.vnc.ubuntu, tags: ubuntu}
 

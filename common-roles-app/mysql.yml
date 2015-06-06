@@ -5,7 +5,8 @@
   roles:
 
     # mysqlのインストール
-    #- {role: ../common-roles/ANXS.mysql, mysql_root_password: foobar }
+    - {role: ../common-roles/ANXS.mysql, mysql_root_password: foobar, tags: ubuntu}
+
     ### tasks/configure.yml はコメントアウト。ぱらめーたは考える
-    - {role: ../common-roles/ANXS.mysql.centos6, mysql_root_password: foobar }
-    #- {role: ../common-roles/ANXS.mysql.centos7, mysql_root_password: foobar }
+    - {role: ../common-roles/ANXS.mysql.centos6, mysql_root_password: foobar, tags: centos6 }
+    - {role: ../common-roles/ANXS.mysql.centos7, mysql_root_password: foobar, tags: centos7 }

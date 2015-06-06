@@ -6,5 +6,5 @@
     # vagrantのインストール
     # vagrant-digitalocean pulginのインストール
     # vagrant-aws pulginのインストール
-    - { role: ../common-roles/ftakao2007.vagrant.centos6, vagrant_version: 1.7.2 }
+    - { role: ../common-roles/ftakao2007.vagrant.centos6, vagrant_version: 1.7.2, tags: centos6 }
 

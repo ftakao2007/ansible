@@ -4,5 +4,5 @@
   sudo: yes
   roles:
     # rdp設定
-    - { role: ../common-roles/ftakao2007.rdp.ubuntu }
+    - { role: ../common-roles/ftakao2007.rdp.ubuntu, tags: ubuntu }
 
