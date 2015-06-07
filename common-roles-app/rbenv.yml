@@ -5,5 +5,5 @@
   roles:
 
     # rbenvのインストール
-    - {role: ../common-roles/ftakao2007.rbenv, rbenv_ruby_version: 2.2.3, tags: [ 'ubuntu' ] }
+    - {role: ../common-roles/ftakao2007.rbenv, rbenv_ruby_version: 2.2.2, tags: [ 'ubuntu' ] }
     - {role: ../common-roles/znzj.rbenv.centos, rbenv_ruby_version: 2.2.2, tags: [ 'centos6', 'centos7' ] }

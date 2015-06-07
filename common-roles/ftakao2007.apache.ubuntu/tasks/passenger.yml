@@ -1,4 +1,19 @@
 ---
+- name: passengerに必要なパッケージをインストール
+  apt: name={{ passenger_packages | join(",") }}
+
 - name: ppassengerをインストール
   gem: name={{ item }} user_install=no executable={{ rbenv_root }}/shims/gem
-  with_items: passenger
+  with_items: passenger_gems
+
+- name: passenger module のインストール
+  command: passenger-install-apache2-module --auto --languages=ruby
+
+- name: バーチャルホスト用confファイルの配置
+  template: src=passenger.tj2 dest=/etc/apache2/sites-available/passenger.conf
+
+- name: バーチャルホストの有効化
+  shell: a2ensite passenger
+
+- name: apache再起動
+  service: name=apache2 state=restarted

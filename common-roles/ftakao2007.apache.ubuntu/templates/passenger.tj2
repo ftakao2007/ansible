@@ -1,0 +1,13 @@
+LoadModule passenger_module /usr/local/rbenv/versions/{{ rbenv_ruby_version }}/lib/ruby/gems/{{ rbenv_ruby_library_version }}/gems/passenger-{{ rbenv_passenger_version }}/buildout/apache2/mod_passenger.so
+<IfModule mod_passenger.c>
+  PassengerRoot /usr/local/rbenv/versions/{{ rbenv_ruby_version }}/lib/ruby/gems/{{ rbenv_ruby_library_version }}/gems/passenger-{{ rbenv_passenger_version }}
+  PassengerDefaultRuby /usr/local/rbenv/versions/{{ rbenv_ruby_version }}/bin/ruby
+</IfModule>
+
+<VirtualHost *:80>
+    DocumentRoot /var/www/passengertest/public
+    ServerName passengertest
+    RackEnv development
+    RackBaseURI /
+    PassengerRuby /usr/local/rbenv/shims/ruby
+</VirtualHost>
