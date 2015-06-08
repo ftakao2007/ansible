@@ -1,0 +1,2 @@
+- name: apacheのインストール
+  yum: name={{ apache_packages | join(",") }}

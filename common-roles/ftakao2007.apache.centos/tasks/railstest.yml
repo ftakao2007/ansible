@@ -1,0 +1,21 @@
+---
+- name: 必要なパッケージのインストール
+  yum: name={{ railstest_packages | join(",") }}
+
+- name: /var/www ディレクトリ 配下に passengertest ディレクトリを作成
+  file: state=directory path=/var/www/passengertest owner=apache group=apache mode=0755
+
+- name: Gemfileを転送
+  copy: src=Gemfile dest=/var/www/passengertest owner=apache group=apache mode=0644
+
+- name: bundle exec実行
+  shell: sudo -u apache /usr/local/rbenv/shims/bundle install --path vendor/bundle chdir=/var/www/passengertest 
+
+- name: rails newの実行
+  shell: sudo -u apache bundle exec rails new . --skip-gemfile chdir=/var/www/passengertest
+
+- name: generate
+  shell: sudo -u apache bundle exec rails generate controller Hello index chdir=/var/www/passengertest
+
+- name: テスト用ファイルを転送
+  copy: src=hello_controller.rb dest=/var/www/passengertest/app/controllers/hello_controller.rb owner=apache group=apache mode=0644
