@@ -1,16 +1,13 @@
 ---
 # vars file for ansible-role-apache
 
+rbenv_root: "/usr/local/rbenv"
 rbenv_ruby_version: "2.2.2"
 rbenv_ruby_library_version: "2.2.0"
 rbenv_passenger_version: "5.0.9"
 
 apache_packages:
 - apache2
-
-railstest_packages:
-- sqlite3
-- libsqlite3-dev
 
 passenger_packages:
 - libcurl4-openssl-dev

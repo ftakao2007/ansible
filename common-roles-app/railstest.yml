@@ -1,8 +1,0 @@
----
-- hosts: webservers
-  gather_facts: no
-  sudo: yes
-  roles:
-
-    # apacheのインストール
-    - {role: ../common-roles/ftakao2007.railstest.centos, tags: centos}

@@ -1,0 +1,6 @@
+---
+passenger_check_working_packages:
+- patch
+- libxml2-devel
+- sqlite
+- sqlite-devel

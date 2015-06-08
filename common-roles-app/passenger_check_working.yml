@@ -1,0 +1,9 @@
+---
+- hosts: webservers
+  gather_facts: no
+  sudo: yes
+  roles:
+
+    # passengerの動作テスト
+    - {role: ../common-roles/ftakao2007.passenger_check_working.ubuntu, tags: ubuntu}
+    - {role: ../common-roles/ftakao2007.passenger_check_working.centos, tags: centos7}

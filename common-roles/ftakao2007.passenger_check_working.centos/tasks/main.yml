@@ -1,0 +1,41 @@
+---
+- name: 必要なパッケージのインストール
+  yum: name={{ passenger_check_working_packages | join(",") }}
+
+- name: /var/www ディレクトリ 配下に passengertest.jp ディレクトリを作成
+  file: state=directory path=/var/www/passengertest.jp owner=apache group=apache mode=0755
+
+- name: Gemfileを転送
+  copy: src=Gemfile dest=/var/www/passengertest.jp owner=apache group=apache mode=0644
+
+- name: bundle installの実行
+  shell: sudo -u apache /usr/local/rbenv/shims/bundle install --path vendor/bundle chdir=/var/www/passengertest.jp
+
+- name: appディレクトリがなければrails newを実行
+  shell: sudo -u apache bundle exec rails new . --skip-gemfile chdir=/var/www/passengertest.jp creates=/var/www/passengertest.jp/app
+
+- name: generate
+  shell: sudo -u apache bundle exec rails generate controller Hello index chdir=/var/www/passengertest.jp creates=/var/www/passengertest.jp/app/controllers/hello_controller.rb
+
+- name: テスト用ファイルを転送
+  copy: src=hello_controller.rb dest=/var/www/passengertest.jp/app/controllers/hello_controller.rb owner=apache group=apache mode=0644
+
+- name: virtuslhost設定ファイルを転送
+  copy: src=passengertest.jp.conf dest=/etc/httpd/conf.d/passengertest.jp.conf owner=apache group=apache mode=0644
+
+- name: apache再起動
+  service: name=httpd state=restarted
+
+- name: curlの実行
+  shell: "curl -H 'Host: passengertest.jp' http://localhost/hello/index"
+  register: curl
+
+- name: rubyのバージョンが表示される事を確認する
+  debug: var=curl.stdout
+
+- name: アクセスログの取得
+  shell: tail -n 1 /var/log/httpd/access_log
+  register: access_log
+
+- name: access_logで200を確認
+  debug: var=access_log.stdout

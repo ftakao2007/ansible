@@ -6,3 +6,4 @@
 
     # apacheのインストール
     - {role: ../common-roles/ftakao2007.apache.ubuntu, tags: ubuntu}
+    - {role: ../common-roles/ftakao2007.apache.centos, tags: [ centos, centos7 ] }

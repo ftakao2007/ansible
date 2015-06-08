@@ -2,7 +2,7 @@
 - name: passengerに必要なパッケージをインストール
   yum: name={{ passenger_packages | join(",") }}
 
-- name: ppassengerをインストール
+- name: passengerをインストール
   gem: name={{ item }} user_install=no executable={{ rbenv_root }}/shims/gem
   with_items: passenger_gems
 
@@ -13,4 +13,4 @@
   template: src=passenger.tj2 dest=/etc/httpd/conf.d/passenger.conf
 
 - name: apache再起動
-  service: name=httpd state=restarted
+  shell: systemctl restart httpd
