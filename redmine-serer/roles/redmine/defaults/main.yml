@@ -1,0 +1,11 @@
+# file: redmine/defaults/main.yml
+
+# Basic settings
+redmine_root: /var/www/redmine
+
+# For database.yml
+database_yml_adapter: mysql2
+database_yml_database: redmine
+database_yml_host: localhost
+database_yml_username: redmine
+database_yml_password: redmine

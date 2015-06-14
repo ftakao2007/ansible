@@ -1,11 +1,16 @@
 ---
 # vars file for ansible-role-apache
 
+# Path
 rbenv_root: "/usr/local/rbenv"
 rbenv_ruby_version: "2.2.2"
 rbenv_ruby_library_version: "2.2.0"
-rbenv_passenger_version: "5.0.9"
+rbenv_passenger_version: "5.0.10"
 
+# Configuration app
+redmine: "redmine"
+
+# Packages
 apache_packages:
 - apache2
 

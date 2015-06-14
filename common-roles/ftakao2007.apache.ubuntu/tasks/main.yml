@@ -1,4 +1,5 @@
 ---
 # tasks file for ansible-role-apache
-- include: apache.yml tags=apache,passenger
-- include: passenger.yml tags=passenger
+- include: apache.yml tags=apache,passenger,redmine,redmine_test
+- include: passenger.yml tags=passenger,redmine,redmine_test
+- include: redmine.yml tags=redmine,redmine_test

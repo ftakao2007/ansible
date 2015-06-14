@@ -1,0 +1,4 @@
+# file: redmine/vars/main.yml
+
+redmine_packages:
+  - libmysqld-dev 

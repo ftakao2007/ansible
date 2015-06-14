@@ -3,11 +3,11 @@
   apt: name={{ passenger_packages | join(",") }}
 
 - name: passengerをインストール
-  gem: name={{ item }} user_install=no executable={{ rbenv_root }}/shims/gem
+  gem: name={{ item }} user_install=no executable={{ rbenv_root }}/shims/gem version={{ rbenv_passenger_version }}
   with_items: passenger_gems
 
 - name: passenger module のインストール
-  command: passenger-install-apache2-module --auto --languages=ruby
+  command: /usr/local/rbenv/shims/passenger-install-apache2-module --auto --languages=ruby creates=/usr/local/rbenv/versions/{{ rbenv_ruby_version }}/lib/ruby/gems/{{ rbenv_ruby_library_version }}/gems/passenger-{{ rbenv_passenger_version }}/buildout/apache2/mod_passenger.so
 
 - name: バーチャルホスト用confファイルの配置
   template: src=passenger.tj2 dest=/etc/apache2/sites-available/passenger.conf

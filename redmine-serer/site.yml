@@ -3,15 +3,23 @@
   gather_facts: yes
   sudo: yes
   roles:
+    # redmineユーザの作成
+    - {role: ../common-roles/useradd.key.ubuntu, user_name: redmine, user_key: id_rsa.pub, tags: [ redmine, user ]}
+
     # rbenv,rubyのインストール
-    - {role: ../common-roles/ftakao2007.rbenv, rbenv_ruby_version: 2.2.2, tags: [ ubuntu, rbenv ] }
+    - {role: ../common-roles/ftakao2007.rbenv, rbenv_ruby_version: 2.2.2, tags: [ redmine, rbenv ] }
 
     # mysqlのインストール
     - {role: ../common-roles/ANXS.mysql,
        mysql_root_password: redmine,
        mysql_databases: [ { name: redmine } ],
-       mysql_users: [  { name: 'redmine', password: 'redmine', priv: "redmine.*:ALL", host: "localhost" } ],
+       mysql_users: [  { name: 'redmine', pass: 'redmine', priv: "redmine.*:ALL", host: "localhost" } ],
        monit_protection: false,
-       tags: [ ubuntu, mysql ]
+       tags: [ redmine, mysql ]
       }
 
+    # redmineのインストール
+    - {role: redmine, tags: [ redmine, redmine_resource ] }
+
+    # apache、passengerのインストール
+    - {role: ../common-roles/ftakao2007.apache.ubuntu, tags: [ redmine, redmine_debug ] }

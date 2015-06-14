@@ -1,0 +1,20 @@
+---
+- name: virtuslhost設定ファイルを転送
+  copy: src={{ redmine }}.conf dest=/etc/apache2/sites-available/{{ redmine }}.conf owner=www-data group=www-data mode=0644
+
+- name: バーチャルホストの有効化
+  shell: a2ensite {{ redmine }}
+
+- name: apache再起動
+  service: name=apache2 state=restarted
+
+- name: curlの実行
+  shell: "curl -H 'Host: {{ redmine }}' http://localhost"
+  register: curl
+
+- name: アクセスログの取得
+  shell: tail -n 1 /var/log/apache2/access.log
+  register: access_log
+
+- name: access_logで200を確認
+  debug: var=access_log.stdout

@@ -1,0 +1,27 @@
+---
+- name: 必要なパッケージのインストール
+  apt:
+    pkg: "{{item}}"
+    update_cache: yes
+  with_items: redmine_packages
+
+- name: redmineをcloneする
+  git: dest={{ redmine_root }} repo=https://github.com/redmine/redmine.git
+
+- name: database.ymlの設定
+  template: src=database.yml.j2 dest={{ redmine_root }}/config/database.yml owner=redmine group=redmine mode=0644
+
+- name: bundle installの実行
+  shell: /usr/local/rbenv/shims/bundle install --path vendor/bundle --without development test postgresql sqlite rmagick chdir=/var/www/redmine
+
+- name: セッションストアの秘密鍵を作成
+  shell: /usr/local/rbenv/shims/bundle exec rake generate_secret_token chdir={{ redmine_root }}
+
+- name: db:migrate
+  shell: RAILS_ENV=production /usr/local/rbenv/shims/bundle exec rake db:migrate chdir={{ redmine_root }}
+
+- name: 日本語のデフォルトデータをデータベースに登録
+  shell: REDMINE_LANG=ja RAILS_ENV=production /usr/local/rbenv/shims/bundle exec rake redmine:load_default_data chdir={{ redmine_root }}
+
+- name: 権限の設定
+  shell: chown -R redmine:redmine {{ redmine_root }}
