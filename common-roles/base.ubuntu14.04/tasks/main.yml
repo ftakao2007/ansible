@@ -13,7 +13,7 @@
     - vim
 
 - name: デフォルトのエディタをvimに設定
-  command: sudo update-alternatives --set editor /usr/bin/vim.basic
+  command: update-alternatives --set editor /usr/bin/vim.basic
 
 - name: 時刻の設定
   command: rsync -Lci --times /usr/share/zoneinfo/Japan /etc/localtime
