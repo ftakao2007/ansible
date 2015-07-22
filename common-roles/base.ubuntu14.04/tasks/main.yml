@@ -7,7 +7,13 @@
   apt: upgrade=dist
 
 - name: 必要なパッケージのインストール
-  apt: name=git state=latest
+  apt: pkg={{item}} state=latest
+  with_items:
+    - git
+    - vim
+
+- name: デフォルトのエディタをvimに設定
+  command: sudo update-alternatives --set editor /usr/bin/vim.basic
 
 - name: 時刻の設定
   command: rsync -Lci --times /usr/share/zoneinfo/Japan /etc/localtime
