@@ -3,3 +3,4 @@
 rbenv_gems:
 - rbenv-rehash
 - bundler
+- pry
