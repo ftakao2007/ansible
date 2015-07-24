@@ -12,7 +12,7 @@
   template: src=database.yml.j2 dest={{ redmine_root }}/config/database.yml owner=redmine group=redmine mode=0644
 
 - name: bundle installの実行
-  shell: /usr/local/rbenv/shims/bundle install --path vendor/bundle --without development test postgresql sqlite rmagick chdir=/var/www/redmine
+  shell: /usr/local/rbenv/shims/bundle install --path vendor/bundle --without development test postgresql sqlite chdir=/var/www/redmine
 
 - name: セッションストアの秘密鍵を作成
   shell: /usr/local/rbenv/shims/bundle exec rake generate_secret_token chdir={{ redmine_root }}

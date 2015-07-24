@@ -2,3 +2,5 @@
 
 redmine_packages:
   - libmysqld-dev 
+  - imagemagick
+  - libmagick++-dev
