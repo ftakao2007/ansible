@@ -19,7 +19,11 @@
       }
 
     # redmineのインストール
-    - {role: redmine, tags: [ redmine, redmine_resource ] }
+    - {role: redmine,
+       configuration_yml_send_address: redmine@example.com,
+       configuration_yml_password: redmine,
+       tags: [ redmine, redmine_resource ]
+      }
 
     # apache、passengerのインストール
     - {role: ../common-roles/ftakao2007.apache.ubuntu, tags: [ redmine, redmine_debug ] }
