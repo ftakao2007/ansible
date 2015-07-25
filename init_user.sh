@@ -44,15 +44,15 @@ echo "ansible_ssh_private_key_file: \"${ssh_private_key_path}\"" >> group_vars/$
 ### create host_vars
 #echo "ansible_ssh_host: \"${ssh_ip}\"" > host_vars/${host_name}
 
-### output example
-echo "### ubuntu"
-echo "$ ansible-playbook -i ${inventoryfile} -t ubuntu apache.yml -vvv"
-echo ""
-
-echo "### centos6"
-echo "$ ansible-playbook -i ${inventoryfile} -t centos6 apache.yml -vvv"
-echo ""
-
-echo "### centos7"
-echo "$ ansible-playbook -i ${inventoryfile} -t centos7 apache.yml -vvv"
-echo ""
+# ### output example
+# echo "### ubuntu"
+# echo "$ ansible-playbook -i ${inventoryfile} -t ubuntu apache.yml -vvv"
+# echo ""
+# 
+# echo "### centos6"
+# echo "$ ansible-playbook -i ${inventoryfile} -t centos6 apache.yml -vvv"
+# echo ""
+# 
+# echo "### centos7"
+# echo "$ ansible-playbook -i ${inventoryfile} -t centos7 apache.yml -vvv"
+# echo ""
