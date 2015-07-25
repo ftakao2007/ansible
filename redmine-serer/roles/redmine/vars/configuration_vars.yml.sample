@@ -1,0 +1,3 @@
+# For configuration.yml
+configuration_yml_send_address: redmine@example.com
+configuration_yml_password: redmine

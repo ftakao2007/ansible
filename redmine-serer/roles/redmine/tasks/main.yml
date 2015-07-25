@@ -8,13 +8,17 @@
 - name: redmineをcloneする
   git: dest={{ redmine_root }} repo=https://github.com/redmine/redmine.git
 
+- name: database_vars.ymlの変数のロード
+  include_vars: "database_vars.yml"
+
 - name: database.ymlの設定
   template: src=database.yml.j2 dest={{ redmine_root }}/config/database.yml owner=redmine group=redmine mode=0644
 
+- name: configuration_vars.ymlの変数のロード
+  include_vars: "configuration_vars.yml"
+
 - name: configuration.ymlの設定
   template: src=configuration.yml.j2 dest={{ redmine_root }}/config/configuration.yml owner=redmine group=redmine mode=0644
-  tags: dev
-
 
 - name: bundle installの実行
   shell: /usr/local/rbenv/shims/bundle install --path vendor/bundle --without development test postgresql sqlite chdir=/var/www/redmine

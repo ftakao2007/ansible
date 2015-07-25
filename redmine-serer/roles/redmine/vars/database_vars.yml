@@ -1,0 +1,6 @@
+# For database.yml
+database_yml_adapter: "{{ lookup('env', 'DATABASE_YML_ADAPTER') }}"
+database_yml_database: "{{ lookup('env', 'DATABASE_YML_DATABASE') }}"
+database_yml_host: "{{ lookup('env', 'DATABASE_YML_HOST') }}"
+database_yml_username: "{{ lookup('env', 'DATABASE_YML_USERNAME') }}"
+database_yml_password: "{{ lookup('env', 'DATABASE_YML_PASSWORD') }}"
