@@ -11,6 +11,10 @@
   with_items:
     - git
     - vim
+    - tk
+    - tcl
+    - tk8.6-dev
+    - tcl8.6-dev
 
 - name: デフォルトのエディタをvimに設定
   command: update-alternatives --set editor /usr/bin/vim.basic

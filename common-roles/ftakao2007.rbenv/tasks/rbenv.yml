@@ -1,4 +1,6 @@
 ---
+#   export CONFIGURE_OPTS="--disable-install-doc" &&
+
 - name: rbenvをcloneする
   git: dest={{ rbenv_root }} repo=https://github.com/sstephenson/rbenv depth=1
 
@@ -19,7 +21,7 @@
     creates: "{{ rbenv_root }}/versions/{{ rbenv_ruby_version }}/bin/ruby"
   shell: |
    . /etc/profile.d/rbenv.sh &&
-   export CONFIGURE_OPTS="--disable-install-doc" &&
+   export CONFIGURE_OPTS="--disable-install-doc --with-tcltkversion={{ tcltk_version }} --with-tcl-lib=/usr/lib/x86_64-linux-gnu --with-tk-lib=/usr/lib/x86_64-linux-gnu --with-tcl-include=/usr/include/tcl{{ tcltk_version }} --with-tk-include=/usr/include/tcl{{ tcltk_version}} --enable-pthread" &&
    rbenv install {{ rbenv_ruby_version }} &&
    rbenv global {{ rbenv_ruby_version }}
 

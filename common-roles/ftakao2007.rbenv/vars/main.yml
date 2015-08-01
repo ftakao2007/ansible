@@ -3,6 +3,7 @@
 
 rbenv_root: "/usr/local/rbenv"
 rbenv_ruby_version: "2.2.3"
+tcltk_version: "8.6"
 
 rbenv_packages:
 - git
