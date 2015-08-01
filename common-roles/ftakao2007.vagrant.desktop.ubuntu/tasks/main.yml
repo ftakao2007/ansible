@@ -1,0 +1,13 @@
+---
+- name: updates a server
+  apt: update_cache=yes
+
+- name: upgrade a server
+  #apt: upgrade=full
+  apt: upgrade=dist
+
+- name: 必要なパッケージのインストール
+  apt:
+    pkg: "{{item}}"
+    update_cache: yes
+  with_items: vagrant_desktop_ubuntu_packages

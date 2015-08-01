@@ -1,0 +1,7 @@
+# file: ftakao2007.vagrant.desktop.ubuntu/vars/main.yml
+
+vagrant_desktop_ubuntu_packages:
+  - xfce4
+  - gnome-shell
+  - ubuntu-desktop
+  - gdm

@@ -1,0 +1,8 @@
+---
+- hosts: webservers
+  gather_facts: no
+  sudo: yes
+  roles:
+    # desktopに必要なものを入れる
+    - { role: ../common-roles/ftakao2007.vagrant.desktop.ubuntu, tags: ubuntu}
+
