@@ -24,3 +24,5 @@ rbenv_gems:
 - bundler
 - pry
 - pry-doc
+- pry-stack_explorer
+- pry-byebug
