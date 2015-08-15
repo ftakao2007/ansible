@@ -1,0 +1,9 @@
+---
+- hosts: webservers
+  gather_facts: no
+  sudo: no
+  roles:
+
+    # vimのインストール
+    - {role: ../common-roles/ftakao2007.vim }
+    # - {role: ../common-roles/ftakao2007.apache.centos, tags: [ centos, centos7 ] }
