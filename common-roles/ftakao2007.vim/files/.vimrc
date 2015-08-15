@@ -20,6 +20,11 @@
  " My Bundles here:
  " Refer to |:NeoBundle-examples|.
  " Note: You don't set neobundle setting in .gvimrc!
+ "
+ NeoBundle 'The-NERD-tree'
+ NeoBundle 'rails.vim'
+ NeoBundle 'dbext.vim'
+ 
  "" neocomplcache
  NeoBundle 'Shougo/neocomplcache'
  " Disable AutoComplPop.
