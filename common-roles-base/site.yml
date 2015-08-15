@@ -4,6 +4,7 @@
   roles:
     # 最新にupdate、必要なパッケージのインストール、時刻の設定
     #- base
+    - { role: ../common-roles/base.mac, tags: mac } 
     - { role: ../common-roles/base.ubuntu, tags: ubuntu } 
     - { role: ../common-roles/base.centos6, tags: [ 'centos', 'centos6' ] }
     - { role: ../common-roles/base.centos7, tags: centos7 }

@@ -1,0 +1,13 @@
+---
+- name: homebrewを最新版にする
+  homebrew: update_homebrew=yes
+
+- name: 全モジュールをupgradeする
+  homebrew: upgrade_all=yes
+
+- name: luaのインストール
+  homebrew: name=lua state=present
+
+- name: vim --with-luaのインストール
+  homebrew: name=vim install_options=with-lua
+  tags: dev
