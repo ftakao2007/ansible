@@ -34,3 +34,6 @@
 - name: デフォルトで入れるgemパッケージをインストール
   gem: name={{ item }} user_install=no executable={{ rbenv_root }}/shims/gem
   with_items: rbenv_gems
+
+# - name: pryのエディタをviに変更
+#   lineinfile: dest=~/.pryrc line='Pry.config.editor = "vi"' create=yes
