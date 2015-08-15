@@ -1,0 +1,13 @@
+- hosts: all
+  user: "{{ ansible_user }}"
+  sudo: yes
+  gather_facts: no
+  tasks:
+    - shell: sudo cat /var/log/cron | grep -v '/usr/lib64/sa/sa1 1 1' | grep -v 'starting 0anacron' | grep -v 'finished 0anacron' | grep -v 'run-parts /etc/cron.hourly' | grep -v 'Anacron started on' | grep -v '/var/lib/mrtg/mrtg.ok' | tail -50
+      register: output
+
+    #- debug: var=output
+    - debug: var=output.stdout_lines
+    #- debug: var=output.stderr
+
+      #ignore_errors: True

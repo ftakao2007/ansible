@@ -1,0 +1,30 @@
+- hosts: all
+  user: "{{ ansible_user }}"
+  sudo: yes
+  gather_facts: no
+  vars:
+    ### dest host user
+    user_name: "{{ ansible_user }}"
+
+    ### vagrant or jenkins
+    public_key_file: id_rsa_vagrant.pub
+    #public_key_file: id_rsa_jenkins.pub
+
+    src_public_key_file: /home/vagrant/.ssh/{{public_key_file}}
+    ###src_public_key_file: /var/lib/jenkins/.ssh/{{public_key_file}}
+
+    # for user
+    dest_home_path: /home/{{user_name}}
+
+  tasks:
+    #- name: hand out public key
+    - copy: src={{src_public_key_file}} dest={{dest_home_path}} owner={{user_name}} group=livesen mode=0600
+    - command: mkdir {{dest_home_path}}/.ssh creates={{dest_home_path}}/.ssh
+    - shell: cat {{dest_home_path}}/{{public_key_file}} >> {{dest_home_path}}/.ssh/authorized_keys removes={{dest_home_path}}/.ssh
+    #- command: chmod 600 {{dest_home_path}}/.ssh/authorized_keys removes={{dest_home_path}}/.ssh/authorized_keys
+    - command: rm {{dest_home_path}}/{{public_key_file}} removes={{dest_home_path}}/{{public_key_file}}
+
+      #ignore_errors: True
+
+# command
+# ansible-playbook -i hosts hand_out_sshkey.yml -k

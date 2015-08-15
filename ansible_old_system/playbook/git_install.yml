@@ -1,0 +1,26 @@
+- hosts: all
+  user: "{{ ansible_user }}"
+  sudo: yes
+  vars:
+    client_user_name: vagrant
+    github_user_name: ftakao2007
+    github_user_mail: ftakao2007@example.com
+    secret_key:       /home/{{client_user_name}}/.ssh/id_rsa-github    
+  tasks:
+    - name: be sure git is installed
+      action: yum pkg=git state=installed
+
+    #- name: create secret-key and public-key
+    - command: sudo -u {{client_user_name}} git config --global user.name {{github_user_name}}
+    - command: sudo -u {{client_user_name}} git config --global user.email {{github_user_mail}}
+    - command: sudo -u {{client_user_name}} ssh-keygen -t rsa -f {{secret_key}} -N "" -C "{{github_user_mail}}" creates={{secret_key}}
+    #- copy: src=~{{client_user_name}}/ansible/config dest=~{{client_user_name}}/.ssh/config owner=vagrant group=vagrant mode=700 backup=yes
+    - shell: sudo -u {{client_user_name}} echo "Host github.com" > ~{{client_user_name}}/.ssh/config
+    - shell: sudo -u {{client_user_name}} echo "  User {{github_user_name}}" >> ~{{client_user_name}}/.ssh/config
+    - shell: sudo -u {{client_user_name}} echo "  IdentityFile ~/.ssh/id_rsa-github" >> ~{{client_user_name}}/.ssh/config
+    - shell: chmod 700 ~{{client_user_name}}/.ssh/config 
+    - shell: chown {{client_user_name}} ~{{client_user_name}}/.ssh/config 
+
+    - shell: cat ~vagrant/.ssh/id_rsa-github.pub
+      register: public_key_contents
+    - debug: msg="{{public_key_contents.stdout}}"

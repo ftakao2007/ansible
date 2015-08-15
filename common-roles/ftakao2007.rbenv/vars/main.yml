@@ -17,3 +17,10 @@ rbenv_packages:
 - libssl-dev
 - libyaml-dev
 - zlib1g,zlib1g-dev
+
+# defaults file for ansible-role-rbenv
+rbenv_gems:
+- rbenv-rehash
+- bundler
+- pry
+- pry-doc

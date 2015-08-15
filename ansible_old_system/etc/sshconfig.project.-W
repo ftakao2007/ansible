@@ -1,0 +1,2 @@
+Host 192.168.33.13
+	ProxyCommand ssh -W %h:%p -w 120 192.168.33.12

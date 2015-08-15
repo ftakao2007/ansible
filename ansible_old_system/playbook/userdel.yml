@@ -1,0 +1,5 @@
+- hosts: all
+  user: "{{ ansible_user }}"
+  sudo: yes
+  tasks:
+    - user: name=ftakao2007 state=absent remove=yes

@@ -1,0 +1,13 @@
+- hosts: all
+  user: "{{ ansible_user }}"
+  sudo: yes
+  gather_facts: no
+  tasks:
+    - shell: sudo -u root crontab -l | grep -v "^#" | sed -e /^$/d
+      register: output
+
+    #- debug: var=output
+    - debug: var=output.stdout_lines
+    #- debug: var=output.stderr
+
+      #ignore_errors: True
