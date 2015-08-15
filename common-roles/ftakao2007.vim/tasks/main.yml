@@ -1,0 +1,12 @@
+---
+- name: ~/.vimディレクトリの作成
+  file: path=~/.vim state=directory mode=0755
+
+- name: NeoBundle用のディレクトリ作成
+  file: path=~/.vim/bundle state=directory mode=0755
+
+- name: NeoBundleのインストール
+  git: repo=https://github.com/Shougo/neobundle.vim.git dest=~/.vim/bundle/neobundle.vim depth=1
+
+- name: .vimrcの配置
+  copy: src=.vimrc dest=~/.vimrc mode=0644 backup=yes
