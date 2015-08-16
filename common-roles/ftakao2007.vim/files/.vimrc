@@ -68,4 +68,8 @@
  " this will conveniently prompt you to install them.
  NeoBundleCheck
 
+" Character code
+set enc=utf-8
+set fenc=utf-8
+set fencs=iso-2022-jp,utf-8,euc-jp,cp932
 
