@@ -5,7 +5,7 @@
   roles:
 
     # pipのインストール
-    - {role: ../common-roles/ftakao2007.pip, tags: [ 'ubuntu', 'centos6', 'centos7' ]}
+    #- {role: ../common-roles/ftakao2007.pip, tags: [ 'ubuntu', 'centos6', 'centos7' ]}
 
     # ansibleのインストール
     - {role: ../common-roles/ftakao2007.ansible.centos, tags: [ 'centos6', 'centos7' ] }
