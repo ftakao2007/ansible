@@ -1,9 +1,11 @@
 ---
 - hosts: webservers
   gather_facts: no
+  sudo: yes
   roles:
     # 最新にupdate、必要なパッケージのインストール、時刻の設定
     #- base
+    - { role: ../common-roles/base.raspbian, tags: raspbian } 
     - { role: ../common-roles/base.mac, tags: mac } 
     - { role: ../common-roles/base.ubuntu, tags: ubuntu } 
     - { role: ../common-roles/base.centos6, tags: [ 'centos', 'centos6' ] }

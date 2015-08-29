@@ -1,0 +1,41 @@
+---
+- hosts: webservers
+  gather_facts: yes
+  sudo: yes
+  pre_tasks:
+    - name: updates a server
+      apt: update_cache=yes
+      tags: jenkins
+
+    - name: upgrade a server
+      apt: upgrade=dist
+      tags: jenkins
+
+  roles:
+    # pipのインストール
+    - {role: ../common-roles/ftakao2007.pip, tags: jenkins }
+
+    # ansibleのインストール
+    - {role: ../common-roles/ftakao2007.ansible.ubuntu, tags: jenkins }
+
+    # rbenv,rubyのインストール
+    - {role: ../common-roles/ftakao2007.rbenv, rbenv_ruby_version: 2.2.2, tags: [ jenkins, rbenv ] }
+
+    # javaのインストール
+    - {role: ../common-roles/geerlingguy.java.ubuntu, java_packages: openjdk-7-jdk, tags: [ jenkins, ubuntu, dev ] }
+
+    # jenkinsのインストール
+    - {role: ../common-roles/geerlingguy.jenkins, tags: [ jenkins, ubuntu, dev ] }
+
+
+#    # mysqlのインストール
+#    - {role: ../common-roles/ANXS.mysql,
+#       mysql_root_password: redmine,
+#       mysql_databases: [ { name: redmine } ],
+#       mysql_users: [  { name: 'redmine', pass: 'redmine', priv: "redmine.*:ALL", host: "localhost" } ],
+#       monit_protection: false,
+#       tags: [ redmine, mysql ]
+#      }
+
+#    # apache、passengerのインストール
+#    - {role: ../common-roles/ftakao2007.apache.ubuntu, tags: [ redmine, redmine_debug ] }

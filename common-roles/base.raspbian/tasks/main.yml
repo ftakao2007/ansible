@@ -1,0 +1,27 @@
+---
+- name: updates a server
+  apt: update_cache=yes
+
+- name: upgrade a server
+  #apt: upgrade=full
+  apt: upgrade=dist
+
+- name: 必要なパッケージのインストール
+  apt: pkg={{item}} state=latest
+  with_items:
+    - git
+    - vim
+
+#    - tk
+#    - tcl
+#    - tk8.6-dev
+#    - tcl8.6-dev
+
+- name: デフォルトのエディタをvimに設定
+  command: update-alternatives --set editor /usr/bin/vim.basic
+
+- name: 時刻の設定
+  command: rsync -Lci --times /usr/share/zoneinfo/Japan /etc/localtime
+  register: rsync
+  changed_when: rsync.stdout|search('^>f.*')
+  #tags: [configuration,timezone]
