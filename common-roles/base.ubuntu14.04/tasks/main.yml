@@ -11,6 +11,7 @@
   with_items:
     - git
     - vim
+    - sshpass
     - tk
     - tcl
     - tk8.6-dev
