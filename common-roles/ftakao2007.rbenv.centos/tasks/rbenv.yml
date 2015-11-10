@@ -1,0 +1,39 @@
+---
+#   export CONFIGURE_OPTS="--disable-install-doc" &&
+
+- name: rbenvをcloneする
+  git: dest={{ rbenv_root }} repo=https://github.com/sstephenson/rbenv depth=1
+
+- name: ruby-buildをcloneする
+  git: dest={{ rbenv_root }}/plugins/ruby-build repo=https://github.com/sstephenson/ruby-build depth=1
+
+- name: profile.d配下にrbenvが使う環境変数を設定
+  template: src=rbenv.sh.j2 dest=/etc/profile.d/rbenv.sh owner=root group=root mode=0644
+
+- name: sudoersの設定(secure_path)
+  lineinfile: dest=/etc/sudoers state=present backrefs=yes regexp='^Defaults\s*secure_path' line='Defaults        secure_path="/usr/local/rbenv/bin:/usr/local/rbenv/shims:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"'
+
+- name: sudoersの設定(env_keep)
+  lineinfile: dest=/etc/sudoers line='Defaults        env_keep += "PATH RBENV_ROOT"'
+  
+- name: rbenv install {{ rbenv_ruby_version }}
+  args:
+    creates: "{{ rbenv_root }}/versions/{{ rbenv_ruby_version }}/bin/ruby"
+  shell: |
+   . /etc/profile.d/rbenv.sh &&
+   export CONFIGURE_OPTS="--disable-install-doc --with-tcltkversion={{ tcltk_version }} --with-tcl-lib=/usr/lib/x86_64-linux-gnu --with-tk-lib=/usr/lib/x86_64-linux-gnu --with-tcl-include=/usr/include/tcl{{ tcltk_version }} --with-tk-include=/usr/include/tcl{{ tcltk_version}} --enable-pthread" &&
+   rbenv install {{ rbenv_ruby_version }} &&
+   rbenv global {{ rbenv_ruby_version }}
+
+- name: rbenvディレクトリ 配下に etc ディレクトリを作成
+  file: state=directory path={{ rbenv_root }}/versions/{{ rbenv_ruby_version }}/etc owner=root group=root mode=0755
+
+- name: gemrcの設定ファイルを追加
+  copy: src=gemrc dest={{ rbenv_root }}/versions/{{ rbenv_ruby_version }}/etc/gemrc owner=root group=root mode=0644
+
+- name: デフォルトで入れるgemパッケージをインストール
+  gem: name={{ item }} user_install=no executable={{ rbenv_root }}/shims/gem
+  with_items: rbenv_gems
+
+# - name: pryのエディタをviに変更
+#   lineinfile: dest=~/.pryrc line='Pry.config.editor = "vi"' create=yes
